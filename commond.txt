@@ -1,0 +1,2 @@
+1.maven打包指定的module： mvn install -pl A -am （A为module名称）
+2.cmd下发送post请求命令：curl -X POST http://localhost:7003/bus/refresh

@@ -1,0 +1,38 @@
+踩坑记：
+1.RestTemplate必须要自己注入
+2.consumer中使用RestTemplate调用provider的方法时报了一个错，com.fasterxml.jackson.databind.exc.MismatchedInputException:
+Cannot construct instance of `com.zfog.springcloud.order.pojo.User` (although at least one Creator exists):
+cannot deserialize from Object value (no delegate- or property-based Creator)
+原因是我在该实体类中添加了一个为了方便实例化该类用的构造函数，导致JVM不会添加默认的无参构造函数，而jackson的反序列化需要无参构造函数，因此报错。
+Response实体类同理。
+解决方法：添加一个无参构造函数
+
+3.spring cloud从 2.0.几开始，需要引入的依赖包会变。最大的特点是 spring-cloud-starter-netflix,许多依赖的组件配置maven时
+都多了一个netflix（之前是没有的）
+
+4.如果spring cloud的版本与依赖的组件版本不匹配，直接会出错。一般都是maven依赖找不到对应的jar包
+
+5.如果spring-cloud和spring-boot版本不匹配，在运行provider-user是会报错 java.lang.NoSuchMethodError: org.springframework.boot.builder.SpringApplicationBuilder
+之前用的spring-cloud版本为Finchley.SR2 spring-boot版本为1.5.x ,将spring-cloud版本替换为Edgware.SR5即可。版本对照表：
+Release train Spring Boot compatibility
+Release Train（spring-cloud版本）	Boot Version（spring-boot版本）
+Greenwich                           2.1.x
+Finchley                            2.0.x
+Edgware                             1.5.x
+Dalston                             1.5.x
+
+6.配置了spring-boot-dependencies后，就不用再配置spring-boot-starter-parent了
+
+7.添加子module时，采用spring Initializer方式，若采用Maven方式，可能导致不能多端口启动同一个应用（原因未知）
+
+8.配置spring-cloud-config的客户端config-client是，用@Value的方式读取远程git仓库的配置文件属性是报错，原因是spring.application.name的值
+必须和仓库中配置文件的{application}一致。例如配置文件为：
+testConfig-test.properties
+这个时候对应的config-cleint的spring.application.name=testConfig
+
+9.使用@RabbitHandler注解的方法不能有返回值，方法应该用void修饰，否则会导致一个rabbit reply message  回复异常
+org.springframework.amqp.rabbit.listener.adapter.ReplyFailureException: Failed to send reply with payload "xxxxxx"
+
+10.测试环境下向bus/refresh接口发起post请求时，需要在application.yml加入
+management.security.enabled=false取消验证
+

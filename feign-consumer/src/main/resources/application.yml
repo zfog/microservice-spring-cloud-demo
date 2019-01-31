@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: feign-consumer
+  zipkin:    ##zipkin配置，url默认为localhost:9411，如果在本地且zipkin server的端口为9411，此配置可以省略
+    base-url: http://localhost:9411
+    locator:
+      discovery:
+        enabled: true
+#spring.zipkin.locator.discovery.enabled=true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://peer1:8761/eureka/
+server:
+  port: 9001
+
+##开启hystrix
+feign:
+  hystrix:
+    enabled: true
+#feign日志配置
+logging.level.com.zfog.feignconsumer.client.NetflixFeignClient: debug
+
+# log trace detail
+logging.level.org.springframework.web.servlet.DispatcherServlet: DEBUG

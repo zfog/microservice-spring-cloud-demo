@@ -1,0 +1,18 @@
+spring:
+  profiles:
+    active: peer1
+#server:
+#  port: 8761
+#eureka:
+#  client:
+#    register-with-eureka: false
+#    fetch-registry: false
+#    service-url:
+#      defaultZone: http://${spring.application.name}:${server.port}/eureka/
+##      defaultZone: http://user:123@localhost:${server.port}/eureka/
+#security:
+#  basic:
+#    enabled: false
+#  user:
+#    name: user
+#    password: 123

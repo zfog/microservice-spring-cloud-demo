@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: api-gateway
+server:
+  port: 8888
+##zuul面向服务路由配置
+##普通写法 zuul.routes.<route>.path; zuul.routes.<route>.serviceId
+#zuul:
+#  routes:
+#    api-a:
+#      path: /api-a/**
+#      serviceId: feign-consumer
+#    api-b:
+#      path: /api-b/**
+#      serviceId: service-provider
+
+##简洁写法 zuul.routes.<serviceId>=<path>
+zuul:
+  routes:
+    feign-consumer: /api-a/**
+    service-provider: /api-b/**
+  ignored-patterns: /**/hello/**  #忽略不希望被路由的路径，范围为所有路径
+##向eureka服务注册中心注册
+eureka:
+  client:
+    service-url:
+      defatulZone: http://peer1:8761/eureka/

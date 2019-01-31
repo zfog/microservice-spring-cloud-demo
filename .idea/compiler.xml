@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="api-gateway" />
+        <module name="config-client" />
+        <module name="config-server" />
+        <module name="eureka-server" />
+        <module name="eureka-server-2" />
+        <module name="feign-consumer" />
+        <module name="rabbitmq-service" />
+        <module name="ribbon-consumer" />
+        <module name="service-provider" />
+        <module name="stream-service" />
+        <module name="zipkin-server" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="consumer-order" target="1.8" />
+      <module name="eureka-server-2" target="1.8" />
+      <module name="provider-user" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
